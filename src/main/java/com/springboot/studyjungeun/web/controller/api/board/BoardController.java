@@ -1,30 +1,41 @@
 package com.springboot.studyjungeun.web.controller.api.board;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.studyjungeun.web.dto.board.CreatBoardReqDto;
+ 
 @RestController
 @RequestMapping("/api/v1/board")
 public class BoardController {
 	
 		
-	
 	//[1. 게시글 작성]
-	//단일 입력값 처리: request.getParameter를  => RequestParam(매개변수)로 파라미터 받음
-	@PostMapping("/content")
-	public ResponseEntity<?> addBoard(@RequestParam("title")String title){
+	//단일 입력값 처리: request.getParameter(무조건 String 타입)를  => RequestParam(매개변수)로 파라미터 받음
+	/* @RequestParam
+	 * 1. 타입을 알아서 찾아줌 ex) 숫자가 들어오면 숫자로 잡아줌
+	 * 2. 형변환이 되서 들어옴
+	 * 3. 실질적으로 String이 들어옴
+	 * 4. 생략가능 ex) 	( @RequestParam ) int usercode,
+	 */
+	
+	@PostMapping("/content")	// /1 or /2...등등 뒤에 번호안줌 번호는?dbIndex이다 명시할 필요없고 자동으로 생성됨
+	public ResponseEntity<?> addBoard(CreatBoardReqDto creatBoardReqDto){
+		//--> 변수명이 같으면 생략 가능 ex) ("content")String content
+		
 		System.out.println("게시글 작성 요청");
-		System.out.println("title: " + title);
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-type","text/html;charset=utf-8");
+		System.out.println("title: " + creatBoardReqDto.getTitle());
+		System.out.println("usercode" + creatBoardReqDto.getUsercode());
+		System.out.println("content" + creatBoardReqDto.getContent());
 		
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.set("Content-type","text/html;charset=utf-8");
+//		return ResponseEntity.ok().headers(headers).body("test");
 		
-		return ResponseEntity.ok().headers(headers).body("test");
+		return ResponseEntity.ok().body("test");
 		//순서지켜야함!! ↓밑에줄과 동일한 방식인데 static 방식 : 200ok
 		
 //		return new ResponseEntity<>(title + "게시글 작성 성공",headers, HttpStatus.BAD_REQUEST);
