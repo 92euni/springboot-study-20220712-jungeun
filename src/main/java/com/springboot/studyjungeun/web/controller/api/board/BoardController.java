@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.studyjungeun.web.dto.board.CreatBoardReqDto;
- 
+import com.springboot.studyjungeun.web.dto.board.CreateBoardReqDto;
+
 @RestController
 @RequestMapping("/api/v1/board")
 public class BoardController {
@@ -23,13 +23,13 @@ public class BoardController {
 	 */
 	
 	@PostMapping("/content")	// /1 or /2...등등 뒤에 번호안줌 번호는?dbIndex이다 명시할 필요없고 자동으로 생성됨
-	public ResponseEntity<?> addBoard(CreatBoardReqDto creatBoardReqDto){
-		//--> 변수명이 같으면 생략 가능 ex) ("content")String content
+	//--> 변수명이 같으면 생략 가능 :  public ResponseEntity<?> addBoard(@RequestParam("title") String title){	
+	public ResponseEntity<?> addBoard(CreateBoardReqDto createBoardReqDto){
 		
 		System.out.println("게시글 작성 요청");
-		System.out.println("title: " + creatBoardReqDto.getTitle());
-		System.out.println("usercode" + creatBoardReqDto.getUsercode());
-		System.out.println("content" + creatBoardReqDto.getContent());
+		System.out.println("title: " + createBoardReqDto.getTitle());
+		System.out.println("usercode" + createBoardReqDto.getUsercode());
+		System.out.println("content" + createBoardReqDto.getContent());
 		
 //		HttpHeaders headers = new HttpHeaders();
 //		headers.set("Content-type","text/html;charset=utf-8");
